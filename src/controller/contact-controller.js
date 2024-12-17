@@ -4,7 +4,9 @@ const create = async (req, res, next,) => {
     try{
         const user = req.user;
         const request = req.body;
+
         const result = await contactService.create(user, request);
+
         res.status(200).json({
             data: result
         });
@@ -17,7 +19,9 @@ const get = async (req, res, next) => {
     try {
         const user = req.user;
         const contactId = req.params.contactId;
+
         const result = await contactService.get(user, contactId);
+
         res.status(200).json({
             data: result
         })
@@ -34,6 +38,7 @@ const update = async (req, res, next) => {
         request.id = contactId;
 
         const result = await contactService.update(user, request);
+
         res.status(200).json({
             data: result
         })
@@ -48,6 +53,7 @@ const remove = async (req, res, next) => {
         const contactId = req.params.contactId;
 
         const result = await contactService.remove(user, contactId);
+
         res.status(200).json({
             data: "kontak berhasil dihapus"
         });
@@ -68,6 +74,7 @@ const search = async (req, res, next) => {
         };
 
         const result = await contactService.search(user, request);
+
         res.status(200).json({
             data: result.data,
             paging: result.paging
@@ -86,6 +93,7 @@ const getAllData = async (req, res, next) => {
         };
 
         const result = await contactService.getAllData(user, request);
+        
         res.status(200).json({
             data: result.data,
             paging: result.paging

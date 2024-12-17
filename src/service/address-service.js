@@ -4,7 +4,7 @@ import {getContactValidation} from "../validation/contact-validation.js";
 import {ResponseError} from "../error/response-error.js";
 import { createAddressValidation, getAddressValidation, updateAddressValidation } from "../validation/address-validation.js";
 
-const checkContactMustExists = async (user, contactId) => {
+const checkContactInDb = async (user, contactId) => {
     contactId = validate(getContactValidation, contactId);
 
     const totalContactInDatabase = await prismaClient.contact.count({
@@ -22,7 +22,7 @@ const checkContactMustExists = async (user, contactId) => {
 }
 
 const create = async (user, contactId, request) => {
-    contactId = await checkContactMustExists(user, contactId);
+    contactId = await checkContactInDb(user, contactId);
 
     const address = validate(createAddressValidation, request);
     address.contact_id = contactId;
@@ -41,7 +41,7 @@ const create = async (user, contactId, request) => {
 }
 
 const get = async (user, contactId, addressId) => {
-    contactId = await checkContactMustExists(user, contactId);
+    contactId = await checkContactInDb(user, contactId);
     addressId = validate(getAddressValidation, addressId);
 
     const address = await prismaClient.address.findFirst({
@@ -67,7 +67,7 @@ const get = async (user, contactId, addressId) => {
 }
 
 const update = async (user, contactId, request) => {
-    contactId = await checkContactMustExists(user, contactId);
+    contactId = await checkContactInDb(user, contactId);
     const address = validate(updateAddressValidation, request);
 
     const totalAddressInDatabase = await prismaClient.address.count({
@@ -104,7 +104,7 @@ const update = async (user, contactId, request) => {
 }
 
 const remove = async (user, contactId, addressId) => {
-    contactId = await checkContactMustExists(user, contactId);
+    contactId = await checkContactInDb(user, contactId);
     addressId = validate(getAddressValidation, addressId);
 
     const totalAddressInDatabase = await prismaClient.address.count({
@@ -126,7 +126,7 @@ const remove = async (user, contactId, addressId) => {
 }
 
 const list = async (user, contactId) => {
-    contactId = await checkContactMustExists(user, contactId);
+    contactId = await checkContactInDb(user, contactId);
 
     return prismaClient.address.findMany({
         where: {

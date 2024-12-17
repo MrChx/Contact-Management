@@ -18,11 +18,11 @@ userRouter.delete('/api/remove/contact/:contactId', contactController.remove);
 userRouter.get('/api/get/contact/search', contactController.search);
 userRouter.get('/api/get/contact', contactController.getAllData);
 
-userRouter.post('/api/contacts/:contactId/addresses', addressController.create);
-userRouter.get('/api/contacts/:contactId/addresses/:addressId', addressController.get);
-userRouter.put('/api/contacts/:contactId/addresses/:addressId', addressController.update);
-userRouter.delete('/api/contacts/:contactId/addresses/:addressId', addressController.remove);
-userRouter.get('/api/contacts/:contactId/addresses', addressController.list);
+userRouter.post('/api/contact/:contactId/address', addressController.create);
+userRouter.get('/api/contact/:contactId/address/:addressId', addressController.get);
+userRouter.put('/api/contact/:contactId/address/:addressId', addressController.update);
+userRouter.delete('/api/contact/:contactId/address/:addressId', addressController.remove);
+userRouter.get('/api/contact/:contactId/address', addressController.list);
 
 export {
     userRouter
